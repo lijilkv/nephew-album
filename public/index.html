@@ -3,15 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Digital Photo Album</title>
+  <title>Digital Photo Collage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #fdf8f2;
-      --card: #ffffff;
-      --ink: #2f2626;
-      --muted: #756868;
-      --accent: #e07a5f;
-      --navy: #3d405b;
+      --bg: #121017;
+      --surface: #1c1924;
+      --surface-hover: #262230;
+      --ink: #f8f5f0;
+      --muted: #a8a09a;
+      --accent: #ff7b54;
+      --accent-soft: rgba(255, 123, 84, 0.16);
+      --border: rgba(255, 255, 255, 0.1);
     }
     * { box-sizing: border-box; }
     body {
@@ -19,165 +24,498 @@
       background: var(--bg);
       color: var(--ink);
       margin: 0;
+      overflow-x: hidden;
     }
 
-    /* Login Screen */
+    /* ================= KIDS COLORFUL LOGIN SCREEN ================= */
     .login-wrap {
+      position: relative;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px;
+      padding: 20px;
+      overflow: hidden;
+      font-family: 'Fredoka', system-ui, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 25%, #a1c4fd 55%, #c2e9fb 80%, #fddb92 100%);
+      background-size: 250% 250%;
+      animation: rainbowShift 12s ease infinite;
+    }
+    @keyframes rainbowShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .sky-decor {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .floater {
+      position: absolute;
+      font-size: 2.6rem;
+      user-select: none;
+      animation: floatBob 6s ease-in-out infinite;
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.12));
+    }
+    .f1 { top: 8%; left: 8%; font-size: 3.4rem; animation-duration: 7s; }
+    .f2 { top: 14%; right: 10%; font-size: 3rem; animation-duration: 5.5s; animation-delay: 1s; }
+    .f3 { bottom: 12%; left: 10%; font-size: 3.2rem; animation-duration: 6.5s; animation-delay: 0.5s; }
+    .f4 { bottom: 10%; right: 8%; font-size: 3.5rem; animation-duration: 8s; animation-delay: 1.5s; }
+    .f5 { top: 45%; left: 4%; font-size: 2.4rem; animation-duration: 5s; animation-delay: 2s; }
+    .f6 { top: 48%; right: 5%; font-size: 2.6rem; animation-duration: 7.5s; animation-delay: 0.8s; }
+    @keyframes floatBob {
+      0%, 100% { transform: translateY(0px) rotate(-4deg); }
+      50% { transform: translateY(-18px) rotate(6deg); }
     }
     .login-card {
-      background: #fff;
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
       width: 100%;
-      max-width: 380px;
-      padding: 28px 24px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      max-width: 400px;
+      padding: 34px 28px 30px;
+      border-radius: 32px;
+      border: 5px solid #ffffff;
+      box-shadow: 0 20px 45px rgba(83, 62, 133, 0.22), 0 8px 0 #ffd166;
+      text-align: center;
+      color: #2d264b;
     }
-    .login-card h2 { margin: 0 0 6px; font-size: 1.4rem; }
-    .login-card p { margin: 0 0 20px; color: var(--muted); font-size: 14px; }
-    .err-msg { color: #c0392b; font-size: 13px; margin-bottom: 10px; display: none; }
+    .login-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 74px;
+      height: 74px;
+      margin: -68px auto 12px;
+      border-radius: 50%;
+      font-size: 2.4rem;
+      background: linear-gradient(135deg, #ff6b6b, #ffd166);
+      border: 5px solid #fff;
+      box-shadow: 0 10px 20px rgba(255, 107, 107, 0.35);
+      animation: bounceIcon 2.5s infinite;
+    }
+    @keyframes bounceIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .login-card h2 {
+      margin: 0 0 6px;
+      font-size: 1.75rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #ff5e7e, #ff9f1c, #2ec4b6, #6a4c93);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .login-card p {
+      margin: 0 0 22px;
+      color: #6c648b;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .login-card .field { text-align: left; margin-bottom: 16px; }
+    .login-card .field label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #4a4063;
+      margin-left: 6px;
+    }
+    .login-card input {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 18px;
+      border: 3px solid #e2dcff;
+      background: #f9f8ff;
+      color: #2d264b;
+      font-family: 'Fredoka', system-ui, sans-serif;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .login-card input:focus {
+      border-color: #4cc9f0;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(76, 201, 240, 0.25);
+    }
+    .kids-btn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 14px 20px;
+      border-radius: 20px;
+      border: none;
+      font-family: 'Fredoka', system-ui, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(90deg, #ff6b6b, #ff9f1c, #06d6a0, #4cc9f0);
+      background-size: 200% auto;
+      box-shadow: 0 6px 0 #d94e67, 0 12px 20px rgba(255, 107, 107, 0.35);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .kids-btn:hover { background-position: right center; transform: translateY(-2px); }
+    .kids-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #d94e67; }
+    .err-msg {
+      background: #ffe3e8;
+      color: #d62839;
+      border: 2px solid #ff9ebb;
+      padding: 8px 12px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      display: none;
+    }
 
-    /* Sticky Top Navigation Bar */
+    /* ================= TOP NAVIGATION BAR ================= */
     .topbar {
       position: sticky;
       top: 0;
       z-index: 30;
-      background: rgba(253, 248, 242, 0.94);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid #eadfce;
-      padding: 12px 18px;
+      background: rgba(18, 16, 23, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      height: 58px;
+      display: flex;
+      align-items: center;
     }
     .topbar-inner {
-      max-width: 1180px;
+      width: 100%;
+      max-width: 1380px;
       margin: 0 auto;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
-    h1 { margin: 0; font-size: 1.35rem; }
-    .nav-actions {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 12px;
-    }
+    h1 { margin: 0; font-size: 1.25rem; display: flex; align-items: center; gap: 8px; }
+    .nav-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
     .upload-link {
       color: var(--accent);
       font-weight: 700;
       text-decoration: none;
-      font-size: 15px;
-      padding: 6px 10px;
-      border-radius: 8px;
-      background: #fae8e2;
-      cursor: pointer;
-    }
-    .upload-link:hover { background: #f5d8ce; }
-
-    input, button {
-      padding: 9px 13px;
-      border-radius: 10px;
-      border: 1px solid #dcd0c0;
       font-size: 14px;
+      padding: 7px 13px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(255, 123, 84, 0.35);
+      transition: all 0.2s ease;
     }
-    button {
-      background: var(--accent);
-      color: #fff;
-      border: none;
+    .upload-link:hover { background: var(--accent); color: #fff; }
+    #appView button {
+      padding: 8px 13px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
+      background: var(--surface-hover);
+      color: var(--ink);
     }
-    button.secondary { background: var(--navy); }
-    button.ghost { background: #efe6da; color: var(--ink); }
+    #appView button:hover { opacity: 0.92; }
 
-    /* Main Content */
-    main {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 20px 16px 40px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 18px;
-    }
-    .polaroid {
+    /* ================= VIDEO STAGE: LAYERED BG + LARGE PHOTO + MULTI TRANSITIONS ================= */
+    .video-reel-half {
       position: relative;
-      background: var(--card);
-      padding: 10px 10px 14px;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
-    }
-    .polaroid img {
       width: 100%;
-      height: 240px;
-      object-fit: cover;
-      border-radius: 8px;
-      display: block;
-      cursor: zoom-in;
-      background: #f3ece2;
+      height: 60vh;
+      min-height: 390px;
+      max-height: 620px;
+      background: #08070b;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.14);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
+
+    /* Crossfading Layered Photo Background */
+    .reel-bg-layer {
+      position: absolute;
+      inset: -40px;
+      background-size: cover;
+      background-position: center;
+      filter: blur(26px) saturate(1.35) brightness(0.46);
+      transform: scale(1.12);
+      opacity: 0;
+      transition: opacity 0.9s ease-in-out;
+      animation: bgFloat 14s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    .reel-bg-layer.active { opacity: 1; }
+    @keyframes bgFloat {
+      0% { transform: scale(1.1) translate(-1.5%, -1%); }
+      100% { transform: scale(1.18) translate(1.5%, 1.5%); }
+    }
+    .reel-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(10, 9, 14, 0.08) 35%, rgba(8, 7, 12, 0.72) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .reel-stage {
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px 4px;
+      min-height: 0;
+      z-index: 2;
+      perspective: 1100px;
+    }
+    .reel-frame {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      max-width: 1120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-in;
+    }
+    .reel-slide-img {
+      position: absolute;
+      max-width: 96%;
+      max-height: 96%;
+      border-radius: 18px;
+      border: 4px solid rgba(255, 255, 255, 0.24);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      object-fit: contain;
+    }
+
+    /* 6 Distinct Photo Transitions */
+    .tx-zoom-fade { animation: txZoomFade 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards, slowDriftA 8s 0.85s ease-in-out infinite alternate; }
+    .tx-slide-left { animation: txSlideLeft 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards, slowDriftB 8s 0.8s ease-in-out infinite alternate; }
+    .tx-slide-up { animation: txSlideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards, slowDriftA 8s 0.8s ease-in-out infinite alternate; }
+    .tx-tilt-pop { animation: txTiltPop 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards, slowDriftB 8s 0.85s ease-in-out infinite alternate; }
+    .tx-blur-dissolve { animation: txBlurDissolve 0.9s ease-out forwards, slowDriftA 8s 0.9s ease-in-out infinite alternate; }
+    .tx-flip-in { animation: txFlipIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards, slowDriftB 8s 0.85s ease-in-out infinite alternate; }
+
+    @keyframes txZoomFade {
+      0% { opacity: 0; transform: scale(0.84); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes txSlideLeft {
+      0% { opacity: 0; transform: translateX(90px) scale(0.96); }
+      100% { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    @keyframes txSlideUp {
+      0% { opacity: 0; transform: translateY(70px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes txTiltPop {
+      0% { opacity: 0; transform: scale(0.82) rotate(-4deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+    @keyframes txBlurDissolve {
+      0% { opacity: 0; filter: blur(18px); transform: scale(1.1); }
+      100% { opacity: 1; filter: blur(0px); transform: scale(1); }
+    }
+    @keyframes txFlipIn {
+      0% { opacity: 0; transform: rotateY(-24deg) scale(0.9); }
+      100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+    }
+
+    @keyframes slowDriftA {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.05) translate(-1%, -0.8%); }
+    }
+    @keyframes slowDriftB {
+      0% { transform: scale(1.04) translate(0.8%, 0.6%); }
+      100% { transform: scale(1) translate(0, 0); }
+    }
+
+    .tx-exit {
+      animation: txExitOut 0.55s ease-in forwards !important;
+      pointer-events: none;
+    }
+    @keyframes txExitOut {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.05); }
+    }
+
+    /* Video Reel HUD & Animated Progress Bar */
+    .video-hud {
+      position: relative;
+      z-index: 3;
+      max-width: 1380px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 8px 18px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--ink);
+    }
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 123, 84, 0.28);
+      color: #ffb199;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ff7b54;
+      animation: pulseDot 1.2s infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.75); }
+    }
+    .reel-caption {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 260px;
+      font-weight: 600;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+    }
+    .reel-bar {
+      flex: 1;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .reel-progress {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff7b54, #ffd166);
+      transition: width 0.2s linear;
+    }
+    .reel-btns {
+      display: flex;
+      gap: 6px;
+    }
+    .reel-btns button {
+      padding: 4px 10px !important;
+      font-size: 12px !important;
+      border-radius: 99px !important;
+      background: rgba(255, 255, 255, 0.16) !important;
+      backdrop-filter: blur(6px);
+    }
+
+    /* ================= SECOND HALF OF SCREEN: PHOTO COLLAGE WALL ================= */
+    main {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 20px 18px 64px;
+    }
+    .wall-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .wall-header h2 {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .collage-wall {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      grid-auto-rows: 210px;
+      grid-auto-flow: dense;
+      gap: 14px;
+    }
+    .wall-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      padding: 6px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+      cursor: zoom-in;
+      transition: transform 0.25s ease;
+    }
+    .wall-item:nth-child(5n+1) { grid-column: span 2; grid-row: span 2; transform: rotate(-0.8deg); }
+    .wall-item:nth-child(5n+2) { transform: rotate(1.1deg); }
+    .wall-item:nth-child(5n+3) { grid-row: span 2; transform: rotate(-1deg); }
+    .wall-item:nth-child(5n+4) { transform: rotate(0.7deg); }
+    .wall-item:nth-child(5n+5) { grid-column: span 2; transform: rotate(-0.6deg); }
+
+    @media (max-width: 600px) {
+      .video-reel-half { height: 52vh; min-height: 310px; }
+      .collage-wall { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; gap: 10px; }
+      .wall-item:nth-child(5n+1) { grid-column: span 2; grid-row: span 2; }
+      .wall-item:nth-child(5n+5) { grid-column: span 2; }
+    }
+    .wall-item:hover {
+      transform: scale(1.03) rotate(0deg) !important;
+      z-index: 10;
+    }
+    .wall-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 11px;
+      display: block;
+    }
+    .tile-meta {
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      padding: 22px 10px 8px;
+      border-radius: 0 0 11px 11px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.82), transparent);
+      font-size: 13px;
+      color: #fff;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .wall-item:hover .tile-meta { opacity: 1; }
     .del-btn {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      background: rgba(0, 0, 0, 0.55);
-      color: #fff;
-      padding: 4px 9px;
-      font-size: 12px;
-      border-radius: 99px;
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.68) !important;
+      color: #fff !important;
+      padding: 4px 9px !important;
+      font-size: 12px !important;
+      border-radius: 99px !important;
+      border: none !important;
+      opacity: 0;
+      transition: opacity 0.2s ease;
     }
-    .caption {
-      margin: 9px 2px 0;
-      font-size: 14px;
-      color: #554a4a;
-    }
+    .wall-item:hover .del-btn { opacity: 1; }
+
     .empty {
       text-align: center;
-      padding: 60px 20px;
+      padding: 70px 20px;
       color: var(--muted);
       max-width: 460px;
       margin: 40px auto;
-      background: #fff;
-      border-radius: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
     }
 
-    /* Dynamic Slideshow View */
-    .slideshow-box {
-      max-width: 860px;
-      margin: 10px auto;
-      background: #1d1a1a;
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
-      text-align: center;
-      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.2);
-    }
-    .slideshow-box img {
-      width: 100%;
-      height: 70vh;
-      object-fit: contain;
-      display: block;
-      transition: opacity 0.4s ease;
-    }
-    .slide-caption {
-      color: #f5efe6;
-      padding: 12px 16px;
-      font-size: 15px;
-      background: rgba(0, 0, 0, 0.6);
-    }
-
-    /* Modals */
+    /* Modals & Lightbox */
     .modal-backdrop {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(20, 16, 16, 0.65);
+      background: rgba(8, 7, 12, 0.84);
+      backdrop-filter: blur(6px);
       z-index: 50;
       align-items: center;
       justify-content: center;
@@ -185,60 +523,145 @@
     }
     .modal-backdrop.open { display: flex; }
     .modal {
-      background: #fff;
+      background: var(--surface);
+      border: 1px solid var(--border);
       width: 100%;
       max-width: 460px;
-      border-radius: 16px;
-      padding: 22px;
+      border-radius: 18px;
+      padding: 24px;
       max-height: 90vh;
       overflow-y: auto;
     }
     .modal h2 { margin-top: 0; font-size: 1.25rem; }
     .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
     .field label { font-size: 13px; font-weight: 600; color: var(--muted); }
+    .modal input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #121017;
+      color: var(--ink);
+    }
+    .modal button {
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .modal button.ghost {
+      background: var(--surface-hover);
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
     .preview-strip { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
-    .preview-strip img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd; }
-    .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
-    .lightbox img { max-width: 92vw; max-height: 85vh; border-radius: 12px; }
+    .preview-strip img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+
+    .lightbox-inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 94vw;
+      max-height: 90vh;
+    }
+    .lightbox-inner img {
+      max-width: 90vw;
+      max-height: 84vh;
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    }
+    .lb-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      font-size: 20px;
+      padding: 12px 16px;
+      border-radius: 99px;
+      border: none;
+      cursor: pointer;
+    }
+    .lb-prev { left: 18px; }
+    .lb-next { right: 18px; }
     .hidden { display: none !important; }
   </style>
 </head>
 <body>
-  <!-- LOGIN VIEW -->
+  <!-- KIDS COLORFUL LOGIN VIEW -->
   <div id="loginView" class="login-wrap">
+    <div class="sky-decor">
+      <div class="floater f1">🎈</div>
+      <div class="floater f2">🌈</div>
+      <div class="floater f3">🚀</div>
+      <div class="floater f4">🧸</div>
+      <div class="floater f5">⭐</div>
+      <div class="floater f6">🎨</div>
+    </div>
+
     <div class="login-card">
-      <h2>📸 Family Album Login</h2>
-      <p>Sign in to view and upload memories</p>
-      <div class="err-msg" id="loginErr">Invalid username or password</div>
+      <div class="login-badge">📸</div>
+      <h2>Little Stars Collage</h2>
+      <p>Type the magic words to open the photo box!</p>
+      <div class="err-msg" id="loginErr">Oops! Wrong name or secret password 🙈</div>
       <form id="loginForm">
         <div class="field">
-          <label>Username</label>
-          <input type="text" id="loginUser" required autocomplete="username" />
+          <label>🧸 Secret Name</label>
+          <input type="text" id="loginUser" placeholder="Enter username..." required autocomplete="username" />
         </div>
         <div class="field">
-          <label>Password</label>
-          <input type="password" id="loginPass" required autocomplete="current-password" />
+          <label>🔑 Magic Password</label>
+          <input type="password" id="loginPass" placeholder="Enter password..." required autocomplete="current-password" />
         </div>
-        <button type="submit" style="width: 100%; margin-top: 6px;">Sign In</button>
+        <button type="submit" class="kids-btn">✨ Open Our Collage! ✨</button>
       </form>
     </div>
   </div>
 
-  <!-- ALBUM VIEW -->
+  <!-- PHOTO COLLAGE VIEW -->
   <div id="appView" class="hidden">
     <header class="topbar">
       <div class="topbar-inner">
-        <h1 id="albumTitle">📸 Our Little Adventures</h1>
+        <h1 id="albumTitle">✨ Our Little Adventures</h1>
         <div class="nav-actions">
           <a href="#upload" class="upload-link" onclick="event.preventDefault(); openModal('addModal')">+ Upload Photos</a>
-          <button class="ghost" id="viewModeBtn" onclick="toggleViewMode()">🎞 Slideshow</button>
-          <button class="secondary" id="musicBtn" onclick="toggleMusic()">🎵 Play Music</button>
-          <button class="ghost" onclick="openModal('settingsModal')" title="Settings">⚙️</button>
-          <button class="ghost" onclick="logout()">Logout</button>
+          <button onclick="shuffleCollage()">🔀 Shuffle</button>
+          <button id="musicBtn" onclick="toggleMusic()">🎵 Play Music</button>
+          <button onclick="openVisitsModal()" title="Visitor Logs">📊 Visits</button>
+          <button onclick="openModal('settingsModal')" title="Settings">⚙️</button>
+          <button onclick="logout()">Logout</button>
         </div>
       </div>
     </header>
 
+    <!-- FIRST HALF OF SCREEN: SINGLE-PHOTO VIDEO REEL WITH LAYERED PHOTO BG -->
+    <section class="video-reel-half hidden" id="videoHalf">
+      <div class="reel-bg-layer active" id="reelBgA"></div>
+      <div class="reel-bg-layer" id="reelBgB"></div>
+      <div class="reel-vignette"></div>
+
+      <div class="reel-stage">
+        <div class="reel-frame" id="reelFrame" onclick="openLightbox(currentReelIdx)"></div>
+      </div>
+
+      <div class="video-hud">
+        <span class="live-pill"><span class="live-dot"></span> MEMORY REEL</span>
+        <span class="reel-caption" id="reelCaption">Playing memories...</span>
+        <div class="reel-bar"><div class="reel-progress" id="reelProgress"></div></div>
+        <div class="reel-btns">
+          <button onclick="stepReel(-1)" title="Previous">◀</button>
+          <button id="reelPauseBtn" onclick="toggleReelPlay()" title="Pause/Play">⏸</button>
+          <button onclick="stepReel(1)" title="Next">▶</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECOND HALF OF SCREEN: SCRAPBOOK PHOTO COLLAGE WALL -->
     <main id="galleryContainer"></main>
   </div>
 
@@ -267,17 +690,17 @@
   <!-- Settings & Music Modal -->
   <div class="modal-backdrop" id="settingsModal">
     <div class="modal">
-      <h2>Album Title & Music</h2>
+      <h2>Collage Title & Music</h2>
       <form id="settingsForm">
         <div class="field">
-          <label>Album Title</label>
+          <label>Collage Title</label>
           <input type="text" id="setTitle" />
         </div>
         <div class="modal-actions">
           <button type="submit">Save Title</button>
         </div>
       </form>
-      <hr style="margin: 18px 0; border: none; border-top: 1px solid #eee;" />
+      <hr style="margin: 18px 0; border: none; border-top: 1px solid var(--border);" />
       <form id="musicForm">
         <div class="field">
           <label>Background Music (MP3 / M4A)</label>
@@ -285,31 +708,103 @@
         </div>
         <div class="modal-actions">
           <button type="button" class="ghost" onclick="closeModal('settingsModal')">Close</button>
-          <button type="submit" class="secondary" id="musicUploadBtn">Upload Music</button>
+          <button type="submit" id="musicUploadBtn">Upload Music</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Fullscreen Lightbox -->
-  <div class="modal-backdrop lightbox" id="lightboxModal" onclick="closeModal('lightboxModal')">
-    <img id="lightboxImg" src="" alt="Full view" />
+  <!-- Interactive Lightbox -->
+  <div class="modal-backdrop" id="lightboxModal" onclick="if(event.target===this) closeModal('lightboxModal')">
+    <button class="lb-nav lb-prev" onclick="stepLightbox(-1)">❮</button>
+    <div class="lightbox-inner">
+      <img id="lightboxImg" src="" alt="Full view" />
+    </div>
+    <button class="lb-nav lb-next" onclick="stepLightbox(1)">❯</button>
   </div>
 
-  <audio id="bgAudio" loop></audio>
+  
+  <!-- Visitor Stats Modal -->
+  <div class="modal-backdrop" id="visitsModal" onclick="if(event.target===this) closeModal('visitsModal')">
+    <div class="modal" style="max-width: 780px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:14px;">
+        <h2 style="margin:0;">📊 Visitor Activity</h2>
+        <div style="display:flex; gap:8px;">
+          <button type="button" class="ghost" onclick="clearVisits()">Clear Logs</button>
+          <button type="button" class="ghost" onclick="closeModal('visitsModal')">Close</button>
+        </div>
+      </div>
+      <div id="visitSummary" style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px;"></div>
+      <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:13px; text-align:left;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border); color:var(--muted);">
+              <th style="padding:8px;">Time</th>
+              <th style="padding:8px;">Action</th>
+              <th style="padding:8px;">IP Address</th>
+              <th style="padding:8px;">Location / ISP</th>
+              <th style="padding:8px;">Device & Browser</th>
+            </tr>
+          </thead>
+          <tbody id="visitsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgAudio" loop preload="auto"></audio>
 
   <script>
     let album = { title: 'Our Little Adventures', photos: [], music: null };
-    let slideshowMode = false;
-    let slideIndex = 0;
-    let slideTimer = null;
+    let reelTimer = null;
+    let reelPlaying = true;
+    let reelTick = 0;
+    let currentReelIdx = 0;
+    let lightboxIdx = 0;
+    let userPausedMusic = false;
+    let activeBgLayer = 'A';
+    let transitionIdx = 0;
+
+    const TRANSITIONS = [
+      'tx-zoom-fade',
+      'tx-slide-left',
+      'tx-tilt-pop',
+      'tx-slide-up',
+      'tx-blur-dissolve',
+      'tx-flip-in',
+    ];
 
     function openModal(id) { document.getElementById(id).classList.add('open'); }
     function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-    function viewFull(url) {
-      document.getElementById('lightboxImg').src = url;
-      openModal('lightboxModal');
+    function tryStartMusic() {
+      const audio = document.getElementById('bgAudio');
+      const btn = document.getElementById('musicBtn');
+      if (!album.music || userPausedMusic) return;
+      if (!audio.src || !audio.src.endsWith(album.music)) {
+        audio.src = album.music;
+      }
+      if (audio.paused) {
+        audio.play()
+          .then(() => { if (btn) btn.textContent = '⏸ Pause Music'; })
+          .catch(() => { if (btn) btn.textContent = '🎵 Play Music'; });
+      }
+    }
+
+    ['click', 'touchstart', 'keydown'].forEach((evt) => {
+      document.addEventListener(evt, () => {
+        if (!document.getElementById('appView').classList.contains('hidden')) {
+          tryStartMusic();
+        }
+      }, { passive: true });
+    });
+
+    function stopAndResetMusic() {
+      const audio = document.getElementById('bgAudio');
+      const btn = document.getElementById('musicBtn');
+      audio.pause();
+      audio.currentTime = 0;
+      if (btn) btn.textContent = '🎵 Play Music';
     }
 
     async function checkAuth() {
@@ -318,8 +813,10 @@
       if (data.authenticated) {
         document.getElementById('loginView').classList.add('hidden');
         document.getElementById('appView').classList.remove('hidden');
-        loadAlbum();
+        await loadAlbum();
       } else {
+        stopAndResetMusic();
+        clearInterval(reelTimer);
         document.getElementById('loginView').classList.remove('hidden');
         document.getElementById('appView').classList.add('hidden');
       }
@@ -329,6 +826,8 @@
       e.preventDefault();
       const errEl = document.getElementById('loginErr');
       errEl.style.display = 'none';
+      userPausedMusic = false;
+
       const res = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -339,70 +838,278 @@
       });
       if (res.ok) {
         e.target.reset();
-        checkAuth();
+        document.getElementById('loginView').classList.add('hidden');
+        document.getElementById('appView').classList.remove('hidden');
+        await loadAlbum();
+        tryStartMusic();
       } else {
         errEl.style.display = 'block';
       }
     };
 
     async function logout() {
-      clearInterval(slideTimer);
+      userPausedMusic = false;
+      stopAndResetMusic();
+      clearInterval(reelTimer);
       await fetch('/api/logout', { method: 'POST' });
-      checkAuth();
+      
+    async function openVisitsModal() {
+      openModal('visitsModal');
+      const tbody = document.getElementById('visitsTableBody');
+      const sumEl = document.getElementById('visitSummary');
+      tbody.innerHTML = "<tr><td colspan='5' style='padding:14px;color:var(--muted);'>Loading visitor logs...</td></tr>";
+      const res = await fetch('/api/visits');
+      if (!res.ok) return;
+      const data = await res.json();
+      sumEl.innerHTML = `
+        <div style="background:#121017; padding:10px 14px; border-radius:12px; border:1px solid var(--border);">
+          <div style="font-size:11px; color:var(--muted);">TOTAL VISITS</div>
+          <div style="font-size:1.3rem; font-weight:700; color:var(--accent);">${data.total}</div>
+        </div>
+        <div style="background:#121017; padding:10px 14px; border-radius:12px; border:1px solid var(--border);">
+          <div style="font-size:11px; color:var(--muted);">UNIQUE DEVICES / IPs</div>
+          <div style="font-size:1.3rem; font-weight:700; color:#4cc9f0;">${data.uniqueIps}</div>
+        </div>
+      `;
+      if (!data.visits.length) {
+        tbody.innerHTML = "<tr><td colspan='5' style='padding:14px;color:var(--muted);'>No visits recorded yet.</td></tr>";
+        return;
+      }
+      tbody.innerHTML = data.visits.map((v) => {
+        const dt = new Date(v.visited_at).toLocaleString();
+        const badgeColor = v.event_type === 'Signed In' ? '#06d6a0' : v.event_type === 'Failed Login' ? '#ff6b6b' : '#ffd166';
+        return `
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px; white-space:nowrap;">${dt}</td>
+            <td style="padding:8px;"><span style="color:${badgeColor}; font-weight:600;">${v.event_type}</span></td>
+            <td style="padding:8px; font-family:monospace;">${v.ip}</td>
+            <td style="padding:8px;">${v.location}${v.isp ? "<br><span style='font-size:11px;color:var(--muted);'>" + v.isp + "</span>" : ''}</td>
+            <td style="padding:8px;"><strong>${v.device}</strong><br><span style='font-size:11px;color:var(--muted);'>${v.os} • ${v.browser}</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function clearVisits() {
+      if (!confirm('Clear all visitor history?')) return;
+      await fetch('/api/visits', { method: 'DELETE' });
+      openVisitsModal();
+    }
+
+    checkAuth();
     }
 
     async function loadAlbum() {
       const res = await fetch('/api/album');
-      if (res.status === 401) return checkAuth();
+      if (res.status === 401) return 
+    async function openVisitsModal() {
+      openModal('visitsModal');
+      const tbody = document.getElementById('visitsTableBody');
+      const sumEl = document.getElementById('visitSummary');
+      tbody.innerHTML = "<tr><td colspan='5' style='padding:14px;color:var(--muted);'>Loading visitor logs...</td></tr>";
+      const res = await fetch('/api/visits');
+      if (!res.ok) return;
+      const data = await res.json();
+      sumEl.innerHTML = `
+        <div style="background:#121017; padding:10px 14px; border-radius:12px; border:1px solid var(--border);">
+          <div style="font-size:11px; color:var(--muted);">TOTAL VISITS</div>
+          <div style="font-size:1.3rem; font-weight:700; color:var(--accent);">${data.total}</div>
+        </div>
+        <div style="background:#121017; padding:10px 14px; border-radius:12px; border:1px solid var(--border);">
+          <div style="font-size:11px; color:var(--muted);">UNIQUE DEVICES / IPs</div>
+          <div style="font-size:1.3rem; font-weight:700; color:#4cc9f0;">${data.uniqueIps}</div>
+        </div>
+      `;
+      if (!data.visits.length) {
+        tbody.innerHTML = "<tr><td colspan='5' style='padding:14px;color:var(--muted);'>No visits recorded yet.</td></tr>";
+        return;
+      }
+      tbody.innerHTML = data.visits.map((v) => {
+        const dt = new Date(v.visited_at).toLocaleString();
+        const badgeColor = v.event_type === 'Signed In' ? '#06d6a0' : v.event_type === 'Failed Login' ? '#ff6b6b' : '#ffd166';
+        return `
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px; white-space:nowrap;">${dt}</td>
+            <td style="padding:8px;"><span style="color:${badgeColor}; font-weight:600;">${v.event_type}</span></td>
+            <td style="padding:8px; font-family:monospace;">${v.ip}</td>
+            <td style="padding:8px;">${v.location}${v.isp ? "<br><span style='font-size:11px;color:var(--muted);'>" + v.isp + "</span>" : ''}</td>
+            <td style="padding:8px;"><strong>${v.device}</strong><br><span style='font-size:11px;color:var(--muted);'>${v.os} • ${v.browser}</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function clearVisits() {
+      if (!confirm('Clear all visitor history?')) return;
+      await fetch('/api/visits', { method: 'DELETE' });
+      openVisitsModal();
+    }
+
+    checkAuth();
       album = await res.json();
-      document.getElementById('albumTitle').textContent = `📸 ${album.title}`;
+      document.getElementById('albumTitle').textContent = `✨ ${album.title}`;
       document.getElementById('setTitle').value = album.title;
+
       if (album.music) {
         const audio = document.getElementById('bgAudio');
-        if (audio.src !== album.music) audio.src = album.music;
+        if (!audio.src || !audio.src.endsWith(album.music)) {
+          audio.src = album.music;
+        }
+        tryStartMusic();
       }
-      renderGallery();
+      renderCollage();
     }
 
-    function toggleViewMode() {
-      slideshowMode = !slideshowMode;
-      document.getElementById('viewModeBtn').textContent = slideshowMode ? '⊞ Grid View' : '🎞 Slideshow';
-      clearInterval(slideTimer);
-      if (slideshowMode && album.photos.length > 0) {
-        slideIndex = 0;
-        slideTimer = setInterval(() => {
-          slideIndex = (slideIndex + 1) % album.photos.length;
-          renderGallery();
-        }, 3500);
+    function shuffleCollage() {
+      if (album.photos.length <= 1) return;
+      for (let i = album.photos.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [album.photos[i], album.photos[j]] = [album.photos[j], album.photos[i]];
       }
-      renderGallery();
+      currentReelIdx = 0;
+      renderCollage();
     }
 
-    function renderGallery() {
+    function updateLayeredBg(url) {
+      const layerA = document.getElementById('reelBgA');
+      const layerB = document.getElementById('reelBgB');
+      if (activeBgLayer === 'A') {
+        layerB.style.backgroundImage = `url('${url}')`;
+        layerB.classList.add('active');
+        layerA.classList.remove('active');
+        activeBgLayer = 'B';
+      } else {
+        layerA.style.backgroundImage = `url('${url}')`;
+        layerA.classList.add('active');
+        layerB.classList.remove('active');
+        activeBgLayer = 'A';
+      }
+    }
+
+    function showSingleReelSlide(idx, instant = false) {
+      const total = album.photos.length;
+      if (!total) return;
+      currentReelIdx = (idx + total) % total;
+      const photo = album.photos[currentReelIdx];
+      const frame = document.getElementById('reelFrame');
+      const capEl = document.getElementById('reelCaption');
+
+      capEl.textContent = `${photo.caption || 'Sweet Memories'} (${currentReelIdx + 1}/${total})`;
+
+      if (instant) {
+        const bgA = document.getElementById('reelBgA');
+        bgA.style.backgroundImage = `url('${photo.url}')`;
+        bgA.classList.add('active');
+        activeBgLayer = 'A';
+        frame.innerHTML = `<img class="reel-slide-img tx-zoom-fade" src="${photo.url}" alt="Memory Video Reel" />`;
+        return;
+      }
+
+      // Crossfade layered background to match new photo
+      updateLayeredBg(photo.url);
+
+      // Animate outgoing photo out
+      const oldImg = frame.querySelector('img');
+      if (oldImg) {
+        oldImg.classList.add('tx-exit');
+        setTimeout(() => oldImg.remove(), 560);
+      }
+
+      // Pick next distinct transition for incoming photo
+      const txClass = TRANSITIONS[transitionIdx % TRANSITIONS.length];
+      transitionIdx++;
+
+      const nextImg = document.createElement('img');
+      nextImg.src = photo.url;
+      nextImg.alt = 'Memory Video Reel';
+      nextImg.className = `reel-slide-img ${txClass}`;
+      frame.appendChild(nextImg);
+    }
+
+    function renderCollage() {
+      const videoHalf = document.getElementById('videoHalf');
       const container = document.getElementById('galleryContainer');
+      clearInterval(reelTimer);
+
       if (!album.photos || album.photos.length === 0) {
-        container.innerHTML = `<div class="empty"><h3>No photos yet</h3><p>Click <strong>+ Upload Photos</strong> in the top bar to add a batch of memories.</p></div>`;
+        videoHalf.classList.add('hidden');
+        container.innerHTML = `<div class="empty"><h3>No photos yet</h3><p>Click <strong>+ Upload Photos</strong> in the top bar to build your video & photo collage.</p></div>`;
         return;
       }
 
-      if (slideshowMode) {
-        const p = album.photos[slideIndex % album.photos.length];
-        container.innerHTML = `
-          <div class="slideshow-box">
-            <img src="${p.url}" alt="Slideshow" />
-            <div class="slide-caption">${p.caption || `Photo ${slideIndex + 1} of ${album.photos.length}`}</div>
-          </div>`;
-        return;
-      }
+      const total = album.photos.length;
 
-      container.innerHTML = `<div class="grid">${album.photos.map((p) => `
-        <div class="polaroid">
-          <button class="del-btn" onclick="deletePhoto(${p.id})" title="Delete">✕</button>
-          <img src="${p.url}" alt="Memory" loading="lazy" onclick="viewFull('${p.url}')" />
-          ${p.caption ? `<p class="caption">${p.caption}</p>` : ''}
+      // 1. First Half of Screen: Large Single-Photo Video Reel with Layered Photo BG
+      videoHalf.classList.remove('hidden');
+      showSingleReelSlide(0, true);
+
+      // 2. Second Half of Screen: Photo Collage Wall
+      container.innerHTML = `
+        <div class="wall-header">
+          <h2>Photo Collage (${total} Memories)</h2>
         </div>
-      `).join('')}</div>`;
+        <div class="collage-wall">
+          ${album.photos.map((p, idx) => `
+            <div class="wall-item" onclick="openLightbox(${idx})">
+              <button class="del-btn" onclick="event.stopPropagation(); deletePhoto(${p.id})" title="Delete">✕</button>
+              <img src="${p.url}" alt="Memory" loading="lazy" />
+              ${p.caption ? `<div class="tile-meta">${p.caption}</div>` : ''}
+            </div>
+          `).join('')}
+        </div>`;
+
+      startReelLoop(total);
     }
+
+    function startReelLoop(total) {
+      clearInterval(reelTimer);
+      reelTick = 0;
+      const bar = document.getElementById('reelProgress');
+      if (bar) bar.style.width = '0%';
+      if (!reelPlaying || total <= 1) return;
+
+      const stepDuration = 4200;
+      const tickMs = 100;
+      reelTimer = setInterval(() => {
+        reelTick += tickMs;
+        if (bar) bar.style.width = `${Math.min(100, (reelTick / stepDuration) * 100)}%`;
+
+        if (reelTick >= stepDuration) {
+          reelTick = 0;
+          showSingleReelSlide(currentReelIdx + 1, false);
+        }
+      }, tickMs);
+    }
+
+    function stepReel(dir) {
+      reelTick = 0;
+      showSingleReelSlide(currentReelIdx + dir, false);
+      startReelLoop(album.photos.length);
+    }
+
+    function toggleReelPlay() {
+      reelPlaying = !reelPlaying;
+      document.getElementById('reelPauseBtn').textContent = reelPlaying ? '⏸' : '▶';
+      if (reelPlaying) startReelLoop(album.photos.length);
+      else clearInterval(reelTimer);
+    }
+
+    function openLightbox(idx) {
+      lightboxIdx = idx;
+      document.getElementById('lightboxImg').src = album.photos[lightboxIdx].url;
+      openModal('lightboxModal');
+    }
+    function stepLightbox(dir) {
+      const total = album.photos.length;
+      lightboxIdx = (lightboxIdx + dir + total) % total;
+      document.getElementById('lightboxImg').src = album.photos[lightboxIdx].url;
+    }
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('lightboxModal').classList.contains('open')) return;
+      if (e.key === 'ArrowRight') stepLightbox(1);
+      if (e.key === 'ArrowLeft') stepLightbox(-1);
+      if (e.key === 'Escape') closeModal('lightboxModal');
+    });
 
     function previewSelected() {
       const strip = document.getElementById('previewStrip');
@@ -454,6 +1161,7 @@
         await fetch('/api/music', { method: 'POST', body: new FormData(e.target) });
         e.target.reset();
         closeModal('settingsModal');
+        userPausedMusic = false;
         await loadAlbum();
       } finally {
         btn.disabled = false;
@@ -465,8 +1173,59 @@
       const audio = document.getElementById('bgAudio');
       const btn = document.getElementById('musicBtn');
       if (!album.music) { openModal('settingsModal'); return; }
-      if (audio.paused) { audio.play(); btn.textContent = '⏸ Pause Music'; }
-      else { audio.pause(); btn.textContent = '🎵 Play Music'; }
+      if (audio.paused) {
+        userPausedMusic = false;
+        audio.play();
+        btn.textContent = '⏸ Pause Music';
+      } else {
+        userPausedMusic = true;
+        audio.pause();
+        btn.textContent = '🎵 Play Music';
+      }
+    }
+
+    
+    async function openVisitsModal() {
+      openModal('visitsModal');
+      const tbody = document.getElementById('visitsTableBody');
+      const sumEl = document.getElementById('visitSummary');
+      tbody.innerHTML = "<tr><td colspan='5' style='padding:14px;color:var(--muted);'>Loading visitor logs...</td></tr>";
+      const res = await fetch('/api/visits');
+      if (!res.ok) return;
+      const data = await res.json();
+      sumEl.innerHTML = `
+        <div style="background:#121017; padding:10px 14px; border-radius:12px; border:1px solid var(--border);">
+          <div style="font-size:11px; color:var(--muted);">TOTAL VISITS</div>
+          <div style="font-size:1.3rem; font-weight:700; color:var(--accent);">${data.total}</div>
+        </div>
+        <div style="background:#121017; padding:10px 14px; border-radius:12px; border:1px solid var(--border);">
+          <div style="font-size:11px; color:var(--muted);">UNIQUE DEVICES / IPs</div>
+          <div style="font-size:1.3rem; font-weight:700; color:#4cc9f0;">${data.uniqueIps}</div>
+        </div>
+      `;
+      if (!data.visits.length) {
+        tbody.innerHTML = "<tr><td colspan='5' style='padding:14px;color:var(--muted);'>No visits recorded yet.</td></tr>";
+        return;
+      }
+      tbody.innerHTML = data.visits.map((v) => {
+        const dt = new Date(v.visited_at).toLocaleString();
+        const badgeColor = v.event_type === 'Signed In' ? '#06d6a0' : v.event_type === 'Failed Login' ? '#ff6b6b' : '#ffd166';
+        return `
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px; white-space:nowrap;">${dt}</td>
+            <td style="padding:8px;"><span style="color:${badgeColor}; font-weight:600;">${v.event_type}</span></td>
+            <td style="padding:8px; font-family:monospace;">${v.ip}</td>
+            <td style="padding:8px;">${v.location}${v.isp ? "<br><span style='font-size:11px;color:var(--muted);'>" + v.isp + "</span>" : ''}</td>
+            <td style="padding:8px;"><strong>${v.device}</strong><br><span style='font-size:11px;color:var(--muted);'>${v.os} • ${v.browser}</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function clearVisits() {
+      if (!confirm('Clear all visitor history?')) return;
+      await fetch('/api/visits', { method: 'DELETE' });
+      openVisitsModal();
     }
 
     checkAuth();
