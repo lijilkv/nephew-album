@@ -242,7 +242,7 @@
       transform: scale(1.12);
       opacity: 0;
       transition: opacity 0.9s ease-in-out;
-      animation: bgFloat 14s ease-in-out infinite alternate;
+      
       pointer-events: none;
     }
     .reel-bg-layer.active { opacity: 1; }
@@ -285,60 +285,28 @@
       max-height: 96%;
       border-radius: 18px;
       border: 4px solid rgba(255, 255, 255, 0.24);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
       object-fit: contain;
+      opacity: 0;
+      visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      will-change: opacity, transform;
+      transition: opacity 0.85s ease-in-out, transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reel-slide-img.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotate(0deg);
     }
 
-    /* 6 Distinct Photo Transitions */
-    .tx-zoom-fade { animation: txZoomFade 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards, slowDriftA 8s 0.85s ease-in-out infinite alternate; }
-    .tx-slide-left { animation: txSlideLeft 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards, slowDriftB 8s 0.8s ease-in-out infinite alternate; }
-    .tx-slide-up { animation: txSlideUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards, slowDriftA 8s 0.8s ease-in-out infinite alternate; }
-    .tx-tilt-pop { animation: txTiltPop 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards, slowDriftB 8s 0.85s ease-in-out infinite alternate; }
-    .tx-blur-dissolve { animation: txBlurDissolve 0.9s ease-out forwards, slowDriftA 8s 0.9s ease-in-out infinite alternate; }
-    .tx-flip-in { animation: txFlipIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards, slowDriftB 8s 0.85s ease-in-out infinite alternate; }
-
-    @keyframes txZoomFade {
-      0% { opacity: 0; transform: scale(0.84); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-    @keyframes txSlideLeft {
-      0% { opacity: 0; transform: translateX(90px) scale(0.96); }
-      100% { opacity: 1; transform: translateX(0) scale(1); }
-    }
-    @keyframes txSlideUp {
-      0% { opacity: 0; transform: translateY(70px) scale(0.95); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    @keyframes txTiltPop {
-      0% { opacity: 0; transform: scale(0.82) rotate(-4deg); }
-      100% { opacity: 1; transform: scale(1) rotate(0deg); }
-    }
-    @keyframes txBlurDissolve {
-      0% { opacity: 0; filter: blur(18px); transform: scale(1.1); }
-      100% { opacity: 1; filter: blur(0px); transform: scale(1); }
-    }
-    @keyframes txFlipIn {
-      0% { opacity: 0; transform: rotateY(-24deg) scale(0.9); }
-      100% { opacity: 1; transform: rotateY(0deg) scale(1); }
-    }
-
-    @keyframes slowDriftA {
-      0% { transform: scale(1) translate(0, 0); }
-      100% { transform: scale(1.05) translate(-1%, -0.8%); }
-    }
-    @keyframes slowDriftB {
-      0% { transform: scale(1.04) translate(0.8%, 0.6%); }
-      100% { transform: scale(1) translate(0, 0); }
-    }
-
-    .tx-exit {
-      animation: txExitOut 0.55s ease-in forwards !important;
-      pointer-events: none;
-    }
-    @keyframes txExitOut {
-      0% { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(1.05); }
-    }
+    /* 6 Hardware-Accelerated Starting Poses (No keyframe conflicts) */
+    .pose-zoom   { transform: translate3d(0, 0, 0) scale3d(0.84, 0.84, 1); }
+    .pose-left   { transform: translate3d(85px, 0, 0) scale3d(0.95, 0.95, 1); }
+    .pose-up     { transform: translate3d(0, 65px, 0) scale3d(0.95, 0.95, 1); }
+    .pose-tilt   { transform: translate3d(0, 0, 0) scale3d(0.86, 0.86, 1) rotate(-4deg); }
+    .pose-right  { transform: translate3d(-85px, 0, 0) scale3d(0.95, 0.95, 1); }
+    .pose-down   { transform: translate3d(0, -65px, 0) scale3d(0.95, 0.95, 1); }
 
     /* Video Reel HUD & Animated Progress Bar */
     .video-hud {
