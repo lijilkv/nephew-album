@@ -632,7 +632,6 @@
           <a href="#upload" class="upload-link" onclick="event.preventDefault(); openModal('addModal')">+ Upload Photos</a>
           <button onclick="shuffleCollage()">🔀 Shuffle</button>
           <button id="musicBtn" onclick="toggleMusic()">🎵 Play Music</button>
-          <button onclick="openVisitsModal()" title="Visitor Logs">📊 Visits</button>
           <button onclick="openModal('settingsModal')" title="Settings">⚙️</button>
           <button onclick="logout()">Logout</button>
         </div>
@@ -896,6 +895,33 @@
       openVisitsModal();
     }
 
+    
+    // Hidden owner-only trigger: triple-tap/click the album title (or press Ctrl+Shift+V)
+    (function setupSecretVisitsTrigger() {
+      const titleEl = document.getElementById('albumTitle');
+      let tapCount = 0;
+      let tapTimer = null;
+      if (titleEl) {
+        titleEl.style.userSelect = 'none';
+        titleEl.addEventListener('click', () => {
+          tapCount++;
+          clearTimeout(tapTimer);
+          if (tapCount >= 3) {
+            tapCount = 0;
+            openVisitsModal();
+          } else {
+            tapTimer = setTimeout(() => { tapCount = 0; }, 700);
+          }
+        });
+      }
+      document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'v') {
+          e.preventDefault();
+          openVisitsModal();
+        }
+      });
+    })();
+
     checkAuth();
     }
 
@@ -944,6 +970,33 @@
       await fetch('/api/visits', { method: 'DELETE' });
       openVisitsModal();
     }
+
+    
+    // Hidden owner-only trigger: triple-tap/click the album title (or press Ctrl+Shift+V)
+    (function setupSecretVisitsTrigger() {
+      const titleEl = document.getElementById('albumTitle');
+      let tapCount = 0;
+      let tapTimer = null;
+      if (titleEl) {
+        titleEl.style.userSelect = 'none';
+        titleEl.addEventListener('click', () => {
+          tapCount++;
+          clearTimeout(tapTimer);
+          if (tapCount >= 3) {
+            tapCount = 0;
+            openVisitsModal();
+          } else {
+            tapTimer = setTimeout(() => { tapCount = 0; }, 700);
+          }
+        });
+      }
+      document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'v') {
+          e.preventDefault();
+          openVisitsModal();
+        }
+      });
+    })();
 
     checkAuth();
       album = await res.json();
@@ -1237,6 +1290,33 @@
       await fetch('/api/visits', { method: 'DELETE' });
       openVisitsModal();
     }
+
+    
+    // Hidden owner-only trigger: triple-tap/click the album title (or press Ctrl+Shift+V)
+    (function setupSecretVisitsTrigger() {
+      const titleEl = document.getElementById('albumTitle');
+      let tapCount = 0;
+      let tapTimer = null;
+      if (titleEl) {
+        titleEl.style.userSelect = 'none';
+        titleEl.addEventListener('click', () => {
+          tapCount++;
+          clearTimeout(tapTimer);
+          if (tapCount >= 3) {
+            tapCount = 0;
+            openVisitsModal();
+          } else {
+            tapTimer = setTimeout(() => { tapCount = 0; }, 700);
+          }
+        });
+      }
+      document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'v') {
+          e.preventDefault();
+          openVisitsModal();
+        }
+      });
+    })();
 
     checkAuth();
   </script>
